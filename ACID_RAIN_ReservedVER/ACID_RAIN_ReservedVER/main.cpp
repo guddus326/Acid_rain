@@ -15,6 +15,7 @@ void printTitle();
 int printMenuList();
 int keyControl();
 void init();
+void printInfo();
 
 void gotoxy(int x, int y)
 {
@@ -23,6 +24,12 @@ void gotoxy(int x, int y)
 }
 void init() {
 	system("mode con cols=60 lines=40");
+	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO ConsoleCursor;
+	ConsoleCursor.bVisible = 0;
+	ConsoleCursor.dwSize = 1;
+	SetConsoleCursorInfo(consoleHandle, &ConsoleCursor);
+
 }
 void printTitle() {
 	
@@ -70,7 +77,7 @@ int printMenuList() {
 				}break;
 			}
 			case SUBMIT: {
-				return y-12;
+				return y-20;
 			}
 		}
 	}
@@ -93,12 +100,34 @@ int keyControl() {
 	}
 
 }
-
+void printInfo() {
+	system("cls");
+	cout << "이동은 w a s d 로 조작합니다" << endl;
+	cout << "선택은 스페이스바로 합니다" << endl;
+	cout << "스페이스바를 누르면 메인화면으로 돌아갑니다.";
+	while (1) {
+		if (keyControl() == SUBMIT) {
+			break;
+		}
+	}
+}
 int main() {
 	init();
-	printTitle();
-	printMenuList();
-	
+	while (1) {
+		printTitle();
+		int menu=printMenuList();
+		if (menu == 0) {
+			//게임시작
+		}
+		else if (menu == 1) {
+			printInfo();
+		}
+		else if (menu == 2) {
+			return 0;
+		}
+		system("cls");
+	}
+	return 0;
 	
 	
 }
