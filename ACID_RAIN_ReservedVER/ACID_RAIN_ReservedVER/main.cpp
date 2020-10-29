@@ -16,6 +16,7 @@ int printMenuList();
 int keyControl();
 void init();
 void printInfo();
+int maplistDraw();
 
 void gotoxy(int x, int y)
 {
@@ -111,13 +112,78 @@ void printInfo() {
 		}
 	}
 }
+
+int maplistDraw() {
+	int x = 24;
+	int y = 6;
+	system("cls");
+	cout << endl<<endl;
+
+	cout << "[스테이지 선택]" << endl << endl;
+
+	gotoxy(x , y);
+	cout << "1 단 계";
+	gotoxy(x , y+1);
+	cout << "2 단 계";
+	gotoxy(x , y+2);
+	cout << "3 단 계";
+	gotoxy(x, y + 3);
+	cout << "4 단 계";
+	gotoxy(x, y + 4);
+	cout << "5 단 계";
+	gotoxy(x, y + 5);
+	cout << "뒤   로";
+
+	while (1) {//무한반복
+		int n = keyControl();
+		switch (n) {
+		case UP: {
+			if (y > 6) {
+				gotoxy(x - 2, y);
+				cout << " ";
+				gotoxy(x - 2, --y);
+				cout << ">";
+			}
+			break;
+		}
+		case DOWN: {
+			if (y < 11) {
+				gotoxy(x - 2, y);
+				cout << " ";
+				gotoxy(x - 2, ++y);
+				cout << ">";
+			}break;
+		}
+		case SUBMIT: {
+			return y - 20;
+		}
+		}
+	}
+}
 int main() {
 	init();
 	while (1) {
 		printTitle();
 		int menu=printMenuList();
 		if (menu == 0) {
-			//게임시작
+			int n = maplistDraw();
+
+			if (n == 0) {
+				cout << "1단계 선택";
+				Sleep(1000);
+			}else if (n == 1) {
+				cout << "2단계 선택";
+				Sleep(1000);
+			}else if (n == 2) {
+				cout << "3단계 선택";
+				Sleep(1000);
+			}else if (n == 3) {
+				cout << "4단계 선택";
+				Sleep(1000);
+			}else if (n == 4) {
+				cout << "5단계 선택";
+				Sleep(1000);
+			}
 		}
 		else if (menu == 1) {
 			printInfo();
