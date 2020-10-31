@@ -1,6 +1,4 @@
-#include <Windows.h>
-#include <iostream>
-#include <conio.h>
+ï»¿#include "main.h"
 
 #define UP 0
 #define DOWN 1
@@ -16,7 +14,7 @@ int printMenuList();
 int keyControl();
 void init();
 void printInfo();
-int maplistDraw();
+void userInput();
 
 void gotoxy(int x, int y)
 {
@@ -24,7 +22,7 @@ void gotoxy(int x, int y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 void init() {
-	system("mode con cols=60 lines=40");
+	system("mode con cols=55 lines=30");
 	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO ConsoleCursor;
 	ConsoleCursor.bVisible = 0;
@@ -33,48 +31,76 @@ void init() {
 
 }
 void printTitle() {
-	
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 	cout << endl << endl << endl << endl;
-	cout <<"      #       ###   ###    ###       \n";
-	cout << "     ##     ##       #     #  #      \n";
-	cout << "    #  #   ##        #     #   #     \n";
-	cout << "   #####    ##       #     #  #      \n";
-	cout << "   #   #      ###   ###    ###       \n";
+	cout <<"       #       ###   ###    ###       \n";
+	Sleep(200);
+	cout << "      ##     ##       #     #  #      \n";
+	Sleep(200);
+	cout << "     #  #   ##        #     #   #     \n";
+	Sleep(200);
+	cout << "    #####    ##       #     #  #      \n";
+	Sleep(200);
+	cout << "    #   #      ###   ###    ###       \n";
+	Sleep(200);
 
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
 	cout << endl << endl;
 	cout << "             ###         #    ###   ##   # \n";
+	Sleep(200);
 	cout << "             #  #      #  #    #    # #  # \n";
+	Sleep(200);
 	cout << "             ###      #####    #    #  # # \n";
+	Sleep(200);
 	cout << "             #  #    #     #   #    #   ## \n";
-	cout << "             #   #  #      #  ###   #    # \n";
+	Sleep(200);
+	cout << "             #   #  #      #  ###   #    # \n\n";
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+	
+	cout << "												ì˜ˆ";
+	Sleep(500);
+	cout << "ì•½";
+	Sleep(500);
+	cout << "ì–´";
+	Sleep(500);
+	cout << "ë²„";
+	Sleep(500);
+	cout << "ì „";
+	Sleep(500);
+	
 	cout << endl << endl << endl;
 }
 
 int printMenuList() {
 	int x=20;
 	int y=20;
-	gotoxy(x, y); cout   <<"°ÔÀÓ½ÃÀÛ";
-	gotoxy(x, y+1); cout <<"°ÔÀÓÁ¤º¸"<<endl;
-	gotoxy(x, y+2); cout <<"°ÔÀÓÁ¾·á" << endl;
+	gotoxy(x-4, y); cout   <<"->  ê²Œ ìž„ ì‹œ ìž‘";
+	gotoxy(x, y+2); cout <<"ê²Œ ìž„ ì • ë³´"<<endl;
+	gotoxy(x, y+4); cout <<"ê²Œ ìž„ ì¢… ë£Œ" << endl;
 
-	while (1) {//¹«ÇÑ¹Ýº¹
+	while (1) {//ë¬´í•œë°˜ë³µ
 		int n = keyControl();
 		switch (n) {
 			case UP: {
 				if (y > 20) {
-					gotoxy(x - 2, y);
-					cout << " ";
-					gotoxy(x - 2, --y);
-					cout << ">";
+					gotoxy(x-4, y);
+					cout << "   ";
+					gotoxy(x -4, --y);
+					gotoxy(x - 4, --y);
+					cout << "->";
+					
 				}
 				break;
 			}
 			case DOWN: {
-				if (y < 22) {
-					gotoxy(x - 2, y);
-					cout << " ";
-					gotoxy(x - 2, ++y);
-					cout << ">";
+				if (y < 24) {
+					gotoxy(x - 4, y);
+					cout << "   ";
+					gotoxy(x - 4, ++y);
+					gotoxy(x - 4, ++y);
+					cout << "->";
+					
 				}break;
 			}
 			case SUBMIT: {
@@ -103,97 +129,51 @@ int keyControl() {
 }
 void printInfo() {
 	system("cls");
-	cout << "ÀÌµ¿Àº w a s d ·Î Á¶ÀÛÇÕ´Ï´Ù" << endl;
-	cout << "¼±ÅÃÀº ½ºÆäÀÌ½º¹Ù·Î ÇÕ´Ï´Ù" << endl;
-	cout << "½ºÆäÀÌ½º¹Ù¸¦ ´©¸£¸é ¸ÞÀÎÈ­¸éÀ¸·Î µ¹¾Æ°©´Ï´Ù.";
+	cout << "ì´ë™ì€ w a s d ë¡œ ì¡°ìž‘í•©ë‹ˆë‹¤" << endl;
+	cout << "ì„ íƒì€ ìŠ¤íŽ˜ì´ìŠ¤ë°”ë¡œ í•©ë‹ˆë‹¤" << endl;
+
+	cout << "ìŠ¤íŽ˜ì´ìŠ¤ë°”ë¥¼ ëˆŒëŸ¬ ì£¼ì„¸ìš”" << endl;
 	while (1) {
 		if (keyControl() == SUBMIT) {
-			break;
+			
 		}
 	}
 }
 
-int maplistDraw() {
-	int x = 24;
-	int y = 6;
+void userInput() {
+	string name;
 	system("cls");
-	cout << endl<<endl;
+	gotoxy(3,1);
+	cout << "<<ì´ë¦„ ìž…ë ¥>>"<<endl;
+	cout << "----------------------------------"<<endl;
+	cout << "-                                -" << endl;
+	cout << "----------------------------------";
+	gotoxy(3, 2);
+	gotoxy(3, 3);
+	cin >> name;
+	while (1) {
+		if (keyControl() == SUBMIT) {
 
-	cout << "[½ºÅ×ÀÌÁö ¼±ÅÃ]" << endl << endl;
-
-	gotoxy(x , y);
-	cout << "1 ´Ü °è";
-	gotoxy(x , y+1);
-	cout << "2 ´Ü °è";
-	gotoxy(x , y+2);
-	cout << "3 ´Ü °è";
-	gotoxy(x, y + 3);
-	cout << "4 ´Ü °è";
-	gotoxy(x, y + 4);
-	cout << "5 ´Ü °è";
-	gotoxy(x, y + 5);
-	cout << "µÚ   ·Î";
-
-	while (1) {//¹«ÇÑ¹Ýº¹
-		int n = keyControl();
-		switch (n) {
-		case UP: {
-			if (y > 6) {
-				gotoxy(x - 2, y);
-				cout << " ";
-				gotoxy(x - 2, --y);
-				cout << ">";
-			}
-			break;
-		}
-		case DOWN: {
-			if (y < 11) {
-				gotoxy(x - 2, y);
-				cout << " ";
-				gotoxy(x - 2, ++y);
-				cout << ">";
-			}break;
-		}
-		case SUBMIT: {
-			return y - 20;
-		}
 		}
 	}
 }
+
 int main() {
 	init();
 	while (1) {
-		printTitle();
+		printTitle();	
 		int menu=printMenuList();
+	
 		if (menu == 0) {
-			int n = maplistDraw();
-
-			if (n == 0) {
-				cout << "1´Ü°è ¼±ÅÃ";
-				Sleep(1000);
-			}else if (n == 1) {
-				cout << "2´Ü°è ¼±ÅÃ";
-				Sleep(1000);
-			}else if (n == 2) {
-				cout << "3´Ü°è ¼±ÅÃ";
-				Sleep(1000);
-			}else if (n == 3) {
-				cout << "4´Ü°è ¼±ÅÃ";
-				Sleep(1000);
-			}else if (n == 4) {
-				cout << "5´Ü°è ¼±ÅÃ";
-				Sleep(1000);
-			}
-		}
-		else if (menu == 1) {
-			printInfo();
+			userInput();
 		}
 		else if (menu == 2) {
+			printInfo();
+		}
+		else if (menu == 4) {
 			return 0;
 		}
 		system("cls");
 	}
 	return 0;
-	
-	
 }
