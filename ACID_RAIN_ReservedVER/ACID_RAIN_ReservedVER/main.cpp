@@ -1,26 +1,14 @@
 ﻿#include "main.h"
-
-#define UP 0
-#define DOWN 1
-#define LEFT 2
-#define RIGHT 3
-#define SUBMIT 4
+#include "game.h"
 
 using namespace std;
-
-void gotoxy(int, int);
-void printTitle();
-int printMenuList();
-int keyControl();
-void init();
-void printInfo();
-void userInput();
 
 void gotoxy(int x, int y)
 {
 	COORD pos = { x,y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
+
 void init() {
 	system("mode con cols=55 lines=30");
 	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -30,6 +18,7 @@ void init() {
 	SetConsoleCursorInfo(consoleHandle, &ConsoleCursor);
 
 }
+
 void printTitle() {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 	cout << endl << endl << endl << endl;
@@ -59,15 +48,15 @@ void printTitle() {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 	
 	cout << "												예";
-	Sleep(500);
+	Sleep(200);
 	cout << "약";
-	Sleep(500);
+	Sleep(200);
 	cout << "어";
-	Sleep(500);
+	Sleep(200);
 	cout << "버";
-	Sleep(500);
+	Sleep(200);
 	cout << "전";
-	Sleep(500);
+	Sleep(200);
 	
 	cout << endl << endl << endl;
 }
@@ -129,48 +118,36 @@ int keyControl() {
 }
 void printInfo() {
 	system("cls");
-	cout << "이동은 w a s d 로 조작합니다" << endl;
-	cout << "선택은 스페이스바로 합니다" << endl;
+	cout << "======예약어 산성비 게임으로 예약어를 익혀보세요======" << endl << endl;
+	cout << "♥ 30초 동안 진행되는 게임입니다" << endl << endl;
+	cout<<"♥ 화면에 나타나는 예약어를 입력해서 없애주세요" << endl <<endl;
+	cout << "♥ 이동은 w a s d 로 조작합니다" << endl << endl;
+	cout << "♥ 선택은 스페이스바로 합니다" << endl << endl;
 
-	cout << "스페이스바를 눌러 주세요" << endl;
+	cout << "스페이스바를 눌러 주세요..." << endl;
 	while (1) {
 		if (keyControl() == SUBMIT) {
-			
+			GameStart();
 		}
 	}
 }
 
-void userInput() {
-	string name;
-	system("cls");
-	gotoxy(3,1);
-	cout << "<<이름 입력>>"<<endl;
-	cout << "----------------------------------"<<endl;
-	cout << "-                                -" << endl;
-	cout << "----------------------------------";
-	gotoxy(3, 2);
-	gotoxy(3, 3);
-	cin >> name;
-	while (1) {
-		if (keyControl() == SUBMIT) {
-
-		}
-	}
-}
 
 int main() {
+	
 	init();
 	while (1) {
 		printTitle();	
 		int menu=printMenuList();
 	
 		if (menu == 0) {
-			userInput();
+			GameStart();
+			return 0;
 		}
-		else if (menu == 2) {
+		if (menu == 2) {
 			printInfo();
 		}
-		else if (menu == 4) {
+		if (menu == 4) {
 			return 0;
 		}
 		system("cls");
